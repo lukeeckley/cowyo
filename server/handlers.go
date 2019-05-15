@@ -159,7 +159,7 @@ func (s Site) Router() *gin.Engine {
 	// router.Use(static.Serve("/static/", static.LocalFile("./static", true)))
 	router.GET("/", func(c *gin.Context) {
 		if s.DefaultPage != "" {
-			c.Redirect(302, "/"+s.DefaultPage+"/read")
+			c.Redirect(302, "/"+s.DefaultPage+"/view")
 		} else {
 			c.Redirect(302, "/"+randomAlliterateCombo())
 		}
@@ -304,7 +304,7 @@ func (s *Site) generateSiteMap() (sitemap string) {
 	for i := range names {
 		sitemap += fmt.Sprintf(`
 	<url>
-	<loc>{{ .Request.Host }}/%s/read</loc>
+	<loc>{{ .Request.Host }}/%s/view</loc>
 	<lastmod>%s</lastmod>
 	<changefreq>monthly</changefreq>
 	<priority>0.8</priority>
@@ -380,7 +380,7 @@ func (s *Site) handlePageRequest(c *gin.Context) {
 	p := s.Open(page)
 	if len(command) < 2 {
 		if p.IsPublished {
-			c.Redirect(302, "/"+page+"/read")
+			c.Redirect(302, "/"+page+"/")
 		} else {
 			c.Redirect(302, "/"+page+"/edit")
 		}
@@ -477,9 +477,9 @@ func (s *Site) handlePageRequest(c *gin.Context) {
 	}
 
 	// swap out /view for /read if it is published
-	if p.IsPublished {
-		rawHTML = strings.Replace(rawHTML, "/view", "/read", -1)
-	}
+	//if p.IsPublished {
+	//	rawHTML = strings.Replace(rawHTML, "/view", "/read", -1)
+	//}
 
 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
 		"EditPage":    command[0:2] == "/e", // /edit
