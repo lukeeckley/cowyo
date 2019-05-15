@@ -102,10 +102,10 @@
                             <a href="/{{ .Page }}/view"  class="pure-menu-link">View</a>
                             <ul class="pure-menu-children">
                             <li class="pure-menu-item">
-                        <a href="/{{ .Page }}/read" class="pure-menu-link">Current</a>
+                        <a href="/{{ .Page }}/view" class="pure-menu-link">Current</a>
                             </li>
                             {{ range .RecentlyEdited}}
-                                <li class="pure-menu-item"><a  class="pure-menu-link" href="/{{.}}/read">{{.}}</a></li>
+                                <li class="pure-menu-item"><a  class="pure-menu-link" href="/{{.}}/view">{{.}}</a></li>
                             {{ end }}
                             </ul>
                         </li>
